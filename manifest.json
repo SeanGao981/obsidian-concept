@@ -1,7 +1,7 @@
 {
-	"id": "sean",
+	"id": "Obsidian-concept",
 	"name": "Concept",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
 	"description": "一个 Obsidian 插件，用于追踪和管理学习材料的熟练度，通过自动更新链接中的熟练度数值帮助记忆和复习",
 	"author": "Sean Gao",
