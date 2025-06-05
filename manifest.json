@@ -1,7 +1,7 @@
 {
 	"id": "sean",
 	"name": "Concept",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minAppVersion": "0.15.0",
 	"description": "Track and manage the proficiency of learning materials",
 	"author": "Sean Gao",

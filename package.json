@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-sample-plugin",
+	"name": "concept",
 	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "Track and manage the proficiency of learning materials",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
