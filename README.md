@@ -1,94 +1,28 @@
-# Obsidian Sample Plugin
-
-This is a sample plugin for Obsidian (https://obsidian.md).
-
-This project uses TypeScript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in TypeScript Definition format, which contains TSDoc comments describing what it does.
-
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
-
-## First time developing plugins?
-
-Quick starting guide for new plugin devs:
-
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
-
-## Releasing new releases
-
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
-
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
-
-## Adding your plugin to the community plugin list
-
-- Check the [plugin guidelines](https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines).
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
-
-## How to use
-
-- Clone this repo.
-- Make sure your NodeJS is at least v16 (`node --version`).
-- `npm i` or `yarn` to install dependencies.
-- `npm run dev` to start compilation in watch mode.
-
-## Manually installing the plugin
-
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
-
-## Improve code quality with eslint (optional)
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
-- To use eslint with this project, make sure to install eslint from terminal:
-  - `npm install -g eslint`
-- To use eslint to analyze this project use this command:
-  - `eslint main.ts`
-  - eslint will then create a report with suggestions for code improvement by file and line number.
-- If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder:
-  - `eslint .\src\`
-
-## Funding URL
-
-You can include funding URLs where people who use your plugin can financially support it.
-
-The simple way is to set the `fundingUrl` field to your link in your `manifest.json` file:
-
-```json
-{
-    "fundingUrl": "https://buymeacoffee.com"
-}
-```
-
-If you have multiple URLs, you can also do:
-
-```json
-{
-    "fundingUrl": {
-        "Buy Me a Coffee": "https://buymeacoffee.com",
-        "GitHub Sponsor": "https://github.com/sponsors",
-        "Patreon": "https://www.patreon.com/"
-    }
-}
-```
-
-## API Documentation
-
-See https://github.com/obsidianmd/obsidian-api
+词汇熟练度追踪器
+一个 Obsidian 插件，用于追踪和管理学习材料的熟练度，通过自动更新链接中的熟练度数值帮助记忆和复习。
+功能特点
+自动更新链接数值：点击 "统计词库" 按钮，自动将文档中所有[[术语]]<sup>数值</sup>格式的链接更新为对应文件元数据中的最新熟练度数值
+统一文档内数值：当同一术语在文档中多次出现时，确保所有实例使用相同的熟练度数值
+自动维护熟练度数据：从文件元数据中读取熟练度信息，保持文档与元数据的一致性
+阈值管理：当熟练度达到设定阈值时，自动将链接转换为普通文本，帮助简化已掌握内容
+双向同步：既可以从文件更新编辑器内容，也可以从编辑器内容更新文件元数据
+使用方法
+安装
+在 Obsidian 中打开 "设置" > "第三方插件"
+关闭 "安全模式"
+点击 "浏览社区插件"
+搜索 "词汇熟练度追踪器"
+点击 "安装"，然后点击 "启用"
+设置
+在插件设置中选择词库所在文件夹
+设置熟练度阈值（默认 300），当熟练度达到该值时链接将被转换为普通文本
+基本操作
+统计词库：点击状态栏图标或使用命令面板执行 "统计词库" 命令，将当前编辑文档中的所有术语链接更新为最新熟练度数值
+更新熟练度：在编辑文档中修改术语后的数值，然后点击 "更新熟练度" 按钮或使用相应命令，将文档中的数值同步到文件元数据中
+自动清理：当术语的熟练度达到或超过阈值时，插件会自动将链接结构转换为普通文本
+工作原理
+插件通过在文档中使用特殊格式的链接[[术语]]<sup>数值</sup>来追踪熟练度。每个术语对应一个 Markdown 文件，文件的元数据中包含该术语的熟练度值。插件通过双向同步机制保持文档内容和文件元数据的一致性。
+贡献
+欢迎通过 GitHub 提交问题或拉取请求来帮助改进此插件。
+许可证
+本插件采用 MIT 许可证。有关详细信息，请参阅 LICENSE 文件。
